@@ -3,6 +3,7 @@ var url = require("url");
 const StringDecoder = require("string_decoder").StringDecoder;
 var config = require("./config");
 var server = http.createServer(function (req, res) {
+  console.log(req.url);
   var parsedUrl = url.parse(req.url, true);
   var path = parsedUrl.pathname;
   var trimmedPath = path.replace(/^\/+|\/+$/g, "");
@@ -40,12 +41,13 @@ var server = http.createServer(function (req, res) {
 });
 server.listen(config.port, function () {
   console.log(
-    "The server is up and running on port" +
+    "The server is up and running on port " +
       config.port +
       " in " +
       config.envName +
       "mode."
   );
+  console.log(`http://localhost:${config.port}`);
   var handlers = {};
   handlers.sample = function (data, callback) {
     callback(406, { name: "sample handler" });
